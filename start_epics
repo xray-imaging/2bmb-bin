@@ -1,0 +1,66 @@
+#!/bin/csh
+setenv EPICS_APP_2BMEN /home/beams/2BMB/epics/synApps/support/energy/
+setenv EPICS_APP_2BMTS /home/beams/2BMB/epics/synApps/support/tomoscan/
+setenv EPICS_APP_2BMMCT /home/beams/2BMB/epics/synApps/support/mctoptics/
+setenv EPICS_APP_2BMREC /home/beams/TOMO/epics/synApps/support/tomostream/
+setenv EPICS_APP_2BMB /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmb
+setenv EPICS_APP_2BMA /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bma
+setenv EPICS_APP_2BMS1 /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmS1
+setenv EPICS_APP_SPINNAKER /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADSpinnaker
+setenv EPICS_APP_GENICAM /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADGenICam
+setenv EPICS_APP_AD /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADCore
+
+set output = `perl $EPICS_APP_2BMB/release.pl $EPICS_APP_2BMB`
+$output
+
+#####################
+# prepare MEDM path
+#
+if (! ${?EPICS_DISPLAY_PATH}) setenv EPICS_DISPLAY_PATH '.'
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_SPINNAKER/spinnakerApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_GENICAM/GenICamApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_AD/ADApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMA/2bmaApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMB/2bmbApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMS1/2bmS1App/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMTS/tomoScanApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMEN/energyApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMMCT/mctOpticsApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$EPICS_APP_2BMREC/tomoStreamApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$AUTOSAVE/asApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$CALC/calcApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$CAMAC/camacApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$CAPUTRECORDER/caputRecorderApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$DAC128V/dac128VApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$DXP/dxpApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$IP/ipApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$IP330/ip330App/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$IPUNIDIG/ipUnidigApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$LOVE/loveApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$MCA/mcaApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$MOTOR/motorApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$OPTICS/opticsApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$QUADEM/quadEMApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SSCAN/sscanApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$STD/stdApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$VME/vmeApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ASYN/opi/medm
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SUPPORT/all_adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SECTORAPP/sectorApp/op/adl
+
+if (! ${?MEDM_EXEC_LIST}) setenv MEDM_EXEC_LIST 'Probe;probe &P &'
+
+#setenv EPICS_CA_ADDR_LIST "164.54.53.126"
+
+# This should agree with the environment variable set by the ioc
+# see 'putenv "EPICS_CA_MAX_ARRAY_BYTES=64008"' in iocBoot/ioc<target>/st.cmd
+#setenv EPICS_CA_MAX_ARRAY_BYTES 64008
+setenv EPICS_CA_MAX_ARRAY_BYTES 3200100
+
+# cd $EPICS_APP_2BMB/2bmbApp/op/adl
+medm -attach -x -dg +50+50 -macro "EPS=2bm:, BEAMLINE=tomoScan_2BM, BEAMLINE1=tomoScanStream_2BM" -local 2bma_beamline.adl &
+
+# cd $EPICS_APP_2BMB/2bmbApp/op/adl
+medm -attach -x -dg +1050+50 -macro "EPS=2bm:, BEAMLINE=tomoScan_2BM, BEAMLINE1=tomoScanStream_2BM" -local 2bmb_beamline.adl &
+
+
