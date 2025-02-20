@@ -6,9 +6,9 @@ setenv EPICS_APP_2BMREC /home/beams/TOMO/epics/synApps/support/tomostream/
 setenv EPICS_APP_2BMB /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmb
 setenv EPICS_APP_2BMA /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bma
 setenv EPICS_APP_2BMS1 /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmS1
-setenv EPICS_APP_SPINNAKER /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADSpinnaker
-setenv EPICS_APP_GENICAM /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADGenICam
-setenv EPICS_APP_AD /APSshare/epics/synApps_6_2_1/support/areaDetector-R3-12-1/ADCore
+setenv EPICS_APP_SPINNAKER /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADSpinnaker
+setenv EPICS_APP_GENICAM /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADGenICam
+setenv EPICS_APP_AD /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADCore
 
 set output = `perl $EPICS_APP_2BMB/release.pl $EPICS_APP_2BMB`
 $output
