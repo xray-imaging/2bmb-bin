@@ -1,6 +1,6 @@
 
 file {
-	name="/home/beams8/USER2BMB/scripts/iocs_start.adl"
+	name="/home/beams0/2BMB/bin/iocs_start.adl"
 	version=030111
 }
 display {
@@ -96,7 +96,7 @@ display {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/detector_IOC_oryx_5mp.sh"
+		name="bash /home/beams/2BMB/bin/detector_IOC_oryx_5mp.sh"
 	}
 	clr=0
 	bclr=49
@@ -111,7 +111,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscanstream_IOC.sh"
+		name="bash /home/beams/2BMB/bin/tomoscanstream_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -126,7 +126,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscan_IOC.sh"
+		name="bash /home/beams/2BMB/bin/tomoscan_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -141,7 +141,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscanstream_server.sh"
+		name="bash /home/beams/2BMB/bin/tomoscanstream_server.sh"
 	}
 	clr=0
 	bclr=49
@@ -156,7 +156,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscan_server.sh"
+		name="bash /home/beams/2BMB/bin/tomoscan_server.sh"
 	}
 	clr=0
 	bclr=49
@@ -171,7 +171,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomostream_IOC.sh"
+		name="bash /home/beams/2BMB/bin/tomostream_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -186,7 +186,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomostream_server.sh"
+		name="bash /home/beams/2BMB/bin/tomostream_server.sh"
 	}
 	clr=0
 	bclr=49
@@ -201,7 +201,7 @@ display {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/mctoptics_IOC.sh"
+		name="bash /home/beams/2BMB/bin/mctoptics_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -216,7 +216,7 @@ display {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/mctoptics_server.sh"
+		name="bash /home/beams/2BMB/bin/mctoptics_server.sh"
 	}
 	clr=0
 	bclr=49
@@ -230,7 +230,7 @@ display {
 		height=20
 	}
 	monitor {
-		chan="2bmbSP1:cam1:DetectorState_RBV"
+		chan="2bmSP1:cam1:DetectorState_RBV"
 		clr=15
 		bclr=4
 	}
@@ -378,7 +378,7 @@ display {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/detector_IOC_oryx_31mp.sh"
+		name="bash /home/beams/2BMB/bin/detector_IOC_oryx_31mp.sh"
 	}
 	clr=0
 	bclr=49
@@ -392,7 +392,7 @@ display {
 		height=20
 	}
 	monitor {
-		chan="2bmbSP2:cam1:DetectorState_RBV"
+		chan="2bmSP2:cam1:DetectorState_RBV"
 		clr=15
 		bclr=4
 	}
@@ -408,7 +408,7 @@ display {
 	}
 	command[0] {
 		label="2bmbS1"
-		name="bash /home/beams/USER2BMB/scripts/2bmS1_IOC.sh"
+		name="bash /home/beams/2BMB/bin/2bmS1_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -423,7 +423,7 @@ display {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/2bmbAERO_IOC.sh"
+		name="bash /home/beams/2BMB/bin/2bmbAERO_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -483,7 +483,7 @@ rectangle {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/detector_IOC_oryx_5mp_stop.sh"
+		name="bash /home/beams/2BMB/bin/detector_IOC_oryx_5mp_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -498,7 +498,7 @@ rectangle {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/detector_IOC_oryx_31mp_stop.sh"
+		name="bash /home/beams/2BMB/bin/detector_IOC_oryx_31mp_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -513,7 +513,7 @@ rectangle {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/mctoptics_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/mctoptics_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -528,7 +528,7 @@ rectangle {
 	}
 	command[0] {
 		label="Restart detector"
-		name="bash /home/beams/USER2BMB/scripts/mctoptics_server_stop.sh"
+		name="bash /home/beams/2BMB/bin/mctoptics_server_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -543,7 +543,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscan_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomoscan_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -558,7 +558,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscan_server_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomoscan_server_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -573,7 +573,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscanstream_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomoscanstream_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -588,7 +588,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomoscanstream_server_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomoscanstream_server_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -603,7 +603,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomostream_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomostream_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -618,7 +618,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/tomostream_server_stop.sh"
+		name="bash /home/beams/2BMB/bin/tomostream_server_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -633,7 +633,7 @@ rectangle {
 	}
 	command[0] {
 		label="2bmbS1"
-		name="bash /home/beams/USER2BMB/scripts/2bmS1_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/2bmS1_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -648,7 +648,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/2bmbAERO_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/2bmbAERO_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -663,7 +663,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/energy_IOC.sh"
+		name="bash /home/beams/2BMB/bin/energy_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -678,7 +678,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/energy_server.sh"
+		name="bash /home/beams/2BMB/bin/energy_server.sh"
 	}
 	clr=0
 	bclr=49
@@ -726,7 +726,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/energy_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/energy_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -741,7 +741,7 @@ rectangle {
 	}
 	command[0] {
 		label="TomoScan"
-		name="bash /home/beams/USER2BMB/scripts/energy_server_stop.sh"
+		name="bash /home/beams/2BMB/bin/energy_server_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -756,7 +756,7 @@ rectangle {
 	}
 	command[0] {
 		label="Eurotherm1"
-		name="bash /home/beams/USER2BMB/scripts/2bmbEuroTherm1_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/2bmbEuroTherm1_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -771,7 +771,7 @@ rectangle {
 	}
 	command[0] {
 		label="EuroTherm1"
-		name="bash /home/beams/USER2BMB/scripts/2bmbEuroTherm1_IOC.sh"
+		name="bash /home/beams/2BMB/bin/2bmbEuroTherm1_IOC.sh"
 	}
 	clr=0
 	bclr=49
@@ -801,7 +801,7 @@ rectangle {
 	}
 	command[0] {
 		label="Eurotherm2"
-		name="bash /home/beams/USER2BMB/scripts/2bmbEuroTherm2_IOC_stop.sh"
+		name="bash /home/beams/2BMB/bin/2bmbEuroTherm2_IOC_stop.sh"
 	}
 	clr=0
 	bclr=20
@@ -816,7 +816,7 @@ rectangle {
 	}
 	command[0] {
 		label="EuroTherm2"
-		name="bash /home/beams/USER2BMB/scripts/2bmbEuroTherm2_IOC.sh"
+		name="bash /home/beams/2BMB/bin/2bmbEuroTherm2_IOC.sh"
 	}
 	clr=0
 	bclr=49
