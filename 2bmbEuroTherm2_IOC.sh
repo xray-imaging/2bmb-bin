@@ -1,9 +1,19 @@
 #!/bin/bash
-gnome-terminal --tab --title "Eurotherm2 IOC" -- bash -c "ssh -t 2bmb@arcturus \
-'cd /net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm2/softioc; \
-./2bmEuroTherm2.sh stop; \
-bash ~/scripts/kill_IOC.sh 2bmEuroTherm2;  \
-sleep 3; \
-./2bmEuroTherm2.sh start;\
-bash'" 
+
+# Define variables
+TAB_NAME="Eurotherm2 IOC"
+REMOTE_USER="2bmb"
+REMOTE_HOST="arcturus"
+WORK_DIR="/net/s2dserv/xorApps/epics/synApps_6_2_1/ioc/2bmEuroTherm/iocBoot/ioc2bmEuroTherm2/softioc"
+
+# Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
+gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
+    ssh -t ${REMOTE_USER}@${REMOTE_HOST} '
+        cd ${WORK_DIR}
+        ./2bmEuroTherm2.sh stop
+        sleep 2
+        ./2bmEuroTherm2.sh run
+        sleep 20
+    ';
+"
 
