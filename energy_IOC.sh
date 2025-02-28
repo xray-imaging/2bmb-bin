@@ -4,7 +4,6 @@
 TAB_NAME="energy IOC"
 REMOTE_USER="2bmb"
 REMOTE_HOST="tomdet"
-SCRIPT_NAME="start_energy.py"
 APP_NAME="energyApp"
 WORK_DIR="/home/beams/2BMB/epics/synApps/support/energy/iocBoot/iocEnergy_2BM/"
 

@@ -1,5 +1,20 @@
-gnome-terminal --tab --title "tomoScan py server" -- bash -c "ssh -t 2bmb@tomdet \
-'bash ~/scripts/kill_server.sh start_tomoscan.py;  \
-cd /home/beams/USER2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMB/; \
-bash -c \"source ~/.bashrc; conda activate tomoscan; python -i start_tomoscan.py\";\
-bash'" 
+#!/bin/bash
+
+# Define variables
+TAB_NAME="tomoScan py server"
+REMOTE_USER="2bmb"
+REMOTE_HOST="tomdet"
+CONDA_ENV="tomoscan"
+SCRIPT_NAME="start_tomoscan.py"
+WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMB/"
+
+# Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
+gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
+    ssh -t ${REMOTE_USER}@${REMOTE_HOST} '
+        cd ${WORK_DIR}
+        conda activate ${CONDA_ENV}
+        kill_server.sh ${SCRIPT_NAME}
+        python -i ${SCRIPT_NAME}
+    ';
+"
+
