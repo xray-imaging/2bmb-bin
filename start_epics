@@ -50,9 +50,6 @@ setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SECTORAPP/sectorApp/op/adl
 
 if (! ${?MEDM_EXEC_LIST}) setenv MEDM_EXEC_LIST 'Probe;probe &P &'
 
-#setenv EPICS_CA_ADDR_LIST "10.54.53.13"
-export EPICS_CA_ADDR_LIST="10.54.113.205"
-
 # This should agree with the environment variable set by the ioc
 # see 'putenv "EPICS_CA_MAX_ARRAY_BYTES=64008"' in iocBoot/ioc<target>/st.cmd
 #setenv EPICS_CA_MAX_ARRAY_BYTES 64008
