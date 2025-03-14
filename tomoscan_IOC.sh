@@ -4,7 +4,6 @@
 TAB_NAME="tomoScan IOC"
 REMOTE_USER="2bmb"
 REMOTE_HOST="tomdet"
-SCRIPT_NAME="start_tomoscan.py"
 APP_NAME="tomoScanApp"
 WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScan_2BMB/"
 

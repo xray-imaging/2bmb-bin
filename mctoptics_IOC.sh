@@ -4,7 +4,6 @@
 TAB_NAME="mctOptics IOC"
 REMOTE_USER="2bmb"
 REMOTE_HOST="tomdet"
-SCRIPT_NAME="start_mctoptics.py"
 APP_NAME="mctOpticsApp"
 WORK_DIR="/home/beams/2BMB/epics/synApps/support/mctoptics/iocBoot/iocMCTOptics/"
 
