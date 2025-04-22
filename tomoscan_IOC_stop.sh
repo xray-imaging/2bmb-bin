@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Define variables
-TAB_NAME="mctOptics IOC"
+TAB_NAME="tomoScan IOC"
 REMOTE_USER="2bmb"
 REMOTE_HOST="tomdet"
-SCRIPT_NAME="start_mctoptics.py"
-APP_NAME="mctOpticsApp"
+SCRIPT_NAME="start_tomoscan.py"
+APP_NAME="tomoScanApp"
 
 # Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
 gnome-terminal --tab --title="$TAB_NAME" -- bash -c "

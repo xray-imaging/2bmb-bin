@@ -1,16 +1,14 @@
 #!/bin/bash
 
 # Define variables
-TAB_NAME="mctOptics IOC"
+TAB_NAME="tomoScan py server"
 REMOTE_USER="2bmb"
 REMOTE_HOST="tomdet"
-SCRIPT_NAME="start_mctoptics.py"
-APP_NAME="mctOpticsApp"
+SCRIPT_NAME="start_tomoscan.py"
 
 # Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
 gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
     ssh -t ${REMOTE_USER}@${REMOTE_HOST} '
-        kill_IOC.sh ${APP_NAME}
         kill_server.sh ${SCRIPT_NAME}
     ';
 "
