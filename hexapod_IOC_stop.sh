@@ -10,6 +10,7 @@ WORK_DIR="/net/s2dserv/xorApps/epics/synApps_6_3/ioc/2bmHXP/iocBoot/ioc2bmHXP/so
 gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
     ssh -t ${REMOTE_USER}@${REMOTE_HOST} '
         cd ${WORK_DIR}
+        source set_epics_arch.sh
         ./2bmHXP.pl stop
     ';
 "
