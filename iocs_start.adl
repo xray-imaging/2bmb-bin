@@ -1,14 +1,14 @@
 
 file {
-	name="/home/beams/2BMB/bin/iocs_start.adl"
+	name="/home/beams0/2BMB/bin/iocs_start.adl"
 	version=030111
 }
 display {
 	object {
-		x=2563
-		y=76
+		x=1815
+		y=743
 		width=710
-		height=600
+		height=570
 	}
 	clr=14
 	bclr=4
@@ -407,21 +407,6 @@ display {
 		height=30
 	}
 	command[0] {
-		label="2bmbS1"
-		name="bash /home/beams/2BMB/bin/2bmS1_IOC.sh"
-	}
-	clr=0
-	bclr=49
-	label="-2bmbS1 IOC"
-}
-"shell command" {
-	object {
-		x=55
-		y=460
-		width=240
-		height=30
-	}
-	command[0] {
 		label="TomoScan"
 		name="bash /home/beams/2BMB/bin/2bmbAERO_IOC.sh"
 	}
@@ -432,22 +417,7 @@ display {
 rectangle {
 	object {
 		x=305
-		y=427
-		width=90
-		height=20
-	}
-	"basic attribute" {
-		clr=15
-	}
-	"dynamic attribute" {
-		vis="if not zero"
-		chan="2bmS1:m1"
-	}
-}
-rectangle {
-	object {
-		x=305
-		y=465
+		y=430
 		width=90
 		height=20
 	}
@@ -457,21 +427,6 @@ rectangle {
 	"dynamic attribute" {
 		vis="if not zero"
 		chan="2bmbAERO:m1"
-	}
-}
-rectangle {
-	object {
-		x=305
-		y=432
-		width=90
-		height=20
-	}
-	"basic attribute" {
-		clr=15
-	}
-	"dynamic attribute" {
-		vis="if zero"
-		chan="2bmS1:m1"
 	}
 }
 "shell command" {
@@ -627,22 +582,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=425
-		width=50
-		height=30
-	}
-	command[0] {
-		label="2bmbS1"
-		name="bash /home/beams/2BMB/bin/2bmS1_IOC_stop.sh"
-	}
-	clr=0
-	bclr=20
-	label="-Stop"
-}
-"shell command" {
-	object {
-		x=3
-		y=460
+		y=423
 		width=50
 		height=30
 	}
@@ -750,7 +690,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=495
+		y=493
 		width=50
 		height=30
 	}
@@ -795,7 +735,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=530
+		y=528
 		width=50
 		height=30
 	}
@@ -825,7 +765,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=534
+		y=535
 		width=90
 		height=20
 	}
@@ -840,7 +780,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=566
+		y=458
 		width=50
 		height=30
 	}
@@ -855,7 +795,7 @@ rectangle {
 "shell command" {
 	object {
 		x=55
-		y=566
+		y=460
 		width=240
 		height=30
 	}
@@ -870,7 +810,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=570
+		y=465
 		width=90
 		height=20
 	}
@@ -879,6 +819,21 @@ rectangle {
 	}
 	"dynamic attribute" {
 		vis="if not zero"
-		chan="2bmHXP:m2.RBV"
+		chan="2bmHXP:HexapodAllEnabled.VAL"
+	}
+}
+rectangle {
+	object {
+		x=305
+		y=465
+		width=90
+		height=20
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		chan="2bmHXP:HexapodAllEnabled.VAL"
 	}
 }
