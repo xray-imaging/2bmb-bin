@@ -5,10 +5,10 @@ file {
 }
 display {
 	object {
-		x=1815
-		y=743
+		x=615
+		y=450
 		width=710
-		height=570
+		height=605
 	}
 	clr=14
 	bclr=4
@@ -835,5 +835,50 @@ rectangle {
 	"dynamic attribute" {
 		vis="if zero"
 		chan="2bmHXP:HexapodAllEnabled.VAL"
+	}
+}
+"shell command" {
+	object {
+		x=3
+		y=563
+		width=50
+		height=30
+	}
+	command[0] {
+		label="JenaNV100D"
+		name="bash /home/beams/2BMB/bin/2bmbJenaNV100D_IOC_stop.sh"
+	}
+	clr=0
+	bclr=20
+	label="-Stop"
+}
+"shell command" {
+	object {
+		x=55
+		y=565
+		width=240
+		height=30
+	}
+	command[0] {
+		label="JenaNV100D"
+		name="bash /home/beams/2BMB/bin/2bmbJenaNV100D_IOC.sh"
+	}
+	clr=0
+	bclr=49
+	label="-Jena NV100D IOC"
+}
+rectangle {
+	object {
+		x=305
+		y=570
+		width=90
+		height=20
+	}
+	"basic attribute" {
+		clr=15
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		chan="JenaNV100D:jena1:twv.VAL"
 	}
 }
