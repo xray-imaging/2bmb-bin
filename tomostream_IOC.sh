@@ -3,7 +3,7 @@
 # Define variables
 TAB_NAME="tomoStream IOC"
 REMOTE_USER="2bmb"
-REMOTE_HOST="tomo1"
+REMOTE_HOST="tomo5"
 APP_NAME="tomoStreamApp"
 WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomostream/iocBoot/iocTomoStream_2BM/"
 

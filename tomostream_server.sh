@@ -3,7 +3,7 @@
 # Define variables
 TAB_NAME="tomoStream py server"
 REMOTE_USER="2bmb"
-REMOTE_HOST="tomo1"
+REMOTE_HOST="tomo5"
 CONDA_ENV="tomostream"
 SCRIPT_NAME="start_tomostream.py"
 WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomostream/iocBoot/iocTomoStream_2BM/"

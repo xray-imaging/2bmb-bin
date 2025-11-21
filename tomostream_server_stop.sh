@@ -3,7 +3,7 @@
 # Define variables
 TAB_NAME="tomoStream py server"
 REMOTE_USER="2bmb"
-REMOTE_HOST="tomo1"
+REMOTE_HOST="tomo5"
 SCRIPT_NAME="start_tomostream.py"
 
 # Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
