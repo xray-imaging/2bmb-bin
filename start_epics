@@ -9,6 +9,7 @@ setenv EPICS_APP_2BMS1 /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmS1
 setenv EPICS_APP_SPINNAKER /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADSpinnaker
 setenv EPICS_APP_GENICAM /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADGenICam
 setenv EPICS_APP_AD /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADCore
+setenv ADLDIR /APSshare/adlsys
 
 set output = `perl $EPICS_APP_2BMB/release.pl $EPICS_APP_2BMB`
 $output
@@ -47,6 +48,9 @@ setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$VME/vmeApp/op/adl
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ASYN/opi/medm
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SUPPORT/all_adl
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SECTORAPP/sectorApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/adlsys/sr/fe
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/adlsys/
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/screens/adl
 
 if (! ${?MEDM_EXEC_LIST}) setenv MEDM_EXEC_LIST 'Probe;probe &P &'
 
