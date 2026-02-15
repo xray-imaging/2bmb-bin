@@ -1,14 +1,14 @@
 
 file {
-	name="/home/beams0/2BMB/bin/iocs_start.adl"
+	name="/home/beams/2BMB/bin/iocs_start.adl"
 	version=030111
 }
 display {
 	object {
-		x=615
-		y=450
+		x=330
+		y=423
 		width=710
-		height=605
+		height=670
 	}
 	clr=14
 	bclr=4
@@ -402,7 +402,7 @@ display {
 "shell command" {
 	object {
 		x=55
-		y=425
+		y=495
 		width=240
 		height=30
 	}
@@ -417,7 +417,7 @@ display {
 rectangle {
 	object {
 		x=305
-		y=430
+		y=500
 		width=90
 		height=20
 	}
@@ -582,7 +582,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=423
+		y=495
 		width=50
 		height=30
 	}
@@ -596,8 +596,8 @@ rectangle {
 }
 "shell command" {
 	object {
-		x=54
-		y=355
+		x=55
+		y=425
 		width=240
 		height=30
 	}
@@ -611,8 +611,8 @@ rectangle {
 }
 "shell command" {
 	object {
-		x=54
-		y=390
+		x=55
+		y=460
 		width=240
 		height=30
 	}
@@ -626,8 +626,8 @@ rectangle {
 }
 "text update" {
 	object {
-		x=304
-		y=360
+		x=305
+		y=430
 		width=400
 		height=20
 	}
@@ -642,8 +642,8 @@ rectangle {
 }
 "text update" {
 	object {
-		x=304
-		y=395
+		x=305
+		y=465
 		width=100
 		height=20
 	}
@@ -659,8 +659,8 @@ rectangle {
 }
 "shell command" {
 	object {
-		x=2
-		y=353
+		x=3
+		y=425
 		width=50
 		height=30
 	}
@@ -674,8 +674,8 @@ rectangle {
 }
 "shell command" {
 	object {
-		x=2
-		y=388
+		x=3
+		y=460
 		width=50
 		height=30
 	}
@@ -690,7 +690,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=493
+		y=565
 		width=50
 		height=30
 	}
@@ -705,7 +705,7 @@ rectangle {
 "shell command" {
 	object {
 		x=55
-		y=495
+		y=565
 		width=240
 		height=30
 	}
@@ -720,7 +720,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=500
+		y=570
 		width=90
 		height=20
 	}
@@ -735,7 +735,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=528
+		y=600
 		width=50
 		height=30
 	}
@@ -750,7 +750,7 @@ rectangle {
 "shell command" {
 	object {
 		x=55
-		y=530
+		y=600
 		width=240
 		height=30
 	}
@@ -765,7 +765,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=535
+		y=605
 		width=90
 		height=20
 	}
@@ -780,7 +780,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=458
+		y=530
 		width=50
 		height=30
 	}
@@ -795,7 +795,7 @@ rectangle {
 "shell command" {
 	object {
 		x=55
-		y=460
+		y=530
 		width=240
 		height=30
 	}
@@ -810,7 +810,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=465
+		y=535
 		width=90
 		height=20
 	}
@@ -825,7 +825,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=465
+		y=535
 		width=90
 		height=20
 	}
@@ -840,7 +840,7 @@ rectangle {
 "shell command" {
 	object {
 		x=3
-		y=563
+		y=635
 		width=50
 		height=30
 	}
@@ -855,7 +855,7 @@ rectangle {
 "shell command" {
 	object {
 		x=55
-		y=565
+		y=635
 		width=240
 		height=30
 	}
@@ -870,7 +870,7 @@ rectangle {
 rectangle {
 	object {
 		x=305
-		y=570
+		y=640
 		width=90
 		height=20
 	}
@@ -881,4 +881,112 @@ rectangle {
 		vis="if not zero"
 		chan="JenaNV100D:jena1:twv.VAL"
 	}
+}
+"shell command" {
+	object {
+		x=55
+		y=390
+		width=240
+		height=30
+	}
+	command[0] {
+		label="TomoScan"
+		name="bash /home/beams/2BMB/bin/tomoscanfpga_server.sh"
+	}
+	clr=0
+	bclr=49
+	label="-TomoScanFPGA server"
+}
+"shell command" {
+	object {
+		x=3
+		y=390
+		width=50
+		height=30
+	}
+	command[0] {
+		label="TomoScan"
+		name="bash /home/beams/2BMB/bin/tomoscanfpga_server_stop.sh"
+	}
+	clr=0
+	bclr=20
+	label="-Stop"
+}
+"shell command" {
+	object {
+		x=3
+		y=355
+		width=50
+		height=30
+	}
+	command[0] {
+		label="TomoScan"
+		name="bash /home/beams/2BMB/bin/tomoscanfpga_IOC_stop.sh"
+	}
+	clr=0
+	bclr=20
+	label="-Stop"
+}
+"shell command" {
+	object {
+		x=55
+		y=355
+		width=240
+		height=30
+	}
+	command[0] {
+		label="TomoScan"
+		name="bash /home/beams/2BMB/bin/tomoscanfpga_IOC.sh"
+	}
+	clr=0
+	bclr=49
+	label="-TomoScanFPGA IOC"
+}
+"text update" {
+	object {
+		x=305
+		y=360
+		width=400
+		height=20
+	}
+	monitor {
+		chan="2bmb:TomoScanFPGA:ScanStatus"
+		clr=14
+		bclr=51
+	}
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=305
+		y=395
+		width=100
+		height=20
+	}
+	monitor {
+		chan="2bmb:TomoScanFPGA:ServerRunning"
+		clr=14
+		bclr=2
+	}
+	clrmod="alarm"
+	format="string"
+	limits {
+	}
+}
+"shell command" {
+	object {
+		x=537
+		y=530
+		width=100
+		height=30
+	}
+	command[0] {
+		label="Hexapod"
+		name="bash /home/beams/2BMB/bin/hexapod_reboot.sh &"
+	}
+	clr=0
+	bclr=20
+	label="-REBOOT"
 }
