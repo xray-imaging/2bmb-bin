@@ -2,13 +2,14 @@
 setenv EPICS_APP_2BMEN /home/beams/2BMB/epics/synApps/support/energy/
 setenv EPICS_APP_2BMTS /home/beams/2BMB/epics/synApps/support/tomoscan/
 setenv EPICS_APP_2BMMCT /home/beams/2BMB/epics/synApps/support/mctoptics/
-setenv EPICS_APP_2BMREC /home/beams/TOMO/epics/synApps/support/tomostream/
+setenv EPICS_APP_2BMREC /home/beams/2BMB/epics/synApps/support/tomostream/
 setenv EPICS_APP_2BMB /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmb
 setenv EPICS_APP_2BMA /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bma
 setenv EPICS_APP_2BMS1 /net/s2dserv/xorApps/epics/synApps_5_8/ioc/2bmS1
 setenv EPICS_APP_SPINNAKER /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADSpinnaker
 setenv EPICS_APP_GENICAM /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADGenICam
 setenv EPICS_APP_AD /APSshare/epics/synApps_6_3/support/areaDetector-R3-14/ADCore
+setenv ADLDIR /APSshare/adlsys
 
 set output = `perl $EPICS_APP_2BMB/release.pl $EPICS_APP_2BMB`
 $output
@@ -47,6 +48,9 @@ setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$VME/vmeApp/op/adl
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ASYN/opi/medm
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SUPPORT/all_adl
 setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$SECTORAPP/sectorApp/op/adl
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/adlsys/sr/fe
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/adlsys/
+setenv EPICS_DISPLAY_PATH $EPICS_DISPLAY_PATH':'$ADLDIR/screens/adl
 
 if (! ${?MEDM_EXEC_LIST}) setenv MEDM_EXEC_LIST 'Probe;probe &P &'
 
@@ -59,6 +63,6 @@ setenv EPICS_CA_MAX_ARRAY_BYTES 3200100
 medm -attach -x -dg +50+50 -macro "EPS=2bm:, BEAMLINE=tomoScan_2BM, BEAMLINE1=tomoScanStream_2BM" -local 2bma_beamline.adl &
 
 # cd $EPICS_APP_2BMB/2bmbApp/op/adl
-medm -attach -x -dg +1050+50 -macro "EPS=2bm:, BEAMLINE=tomoScan_2BM, BEAMLINE1=tomoScanStream_2BM" -local 2bmb_beamline.adl &
+medm -attach -x -dg +1050+50 -macro "EPS=2bm:, BEAMLINE=tomoScan_2BM, BEAMLINE1=tomoScanStream_2BM, BEAMLINE2=tomoScanFPGA_2BM" -local 2bmb_beamline.adl &
 
-medm -x -macro "P=2bm:,P1=2bmb:,P2=2bmS1:,P3=2bmHXP:,R=MCTOptics:,ER=Energy:,EPS=2bm:,FE=2bma:,Q1=A_shutter:,Q2=B_shutter:,AD0=2bmSP1:,AD0_CAM=cam1:,AD0_PROC1=Proc1:,AD0_HDF=HDF1:,AD0_MODEL=FLIR_ORX_10G_51S5M,AD1=2bmSP2:,AD1_CAM=cam1:,AD1_PROC1=Proc1:,AD1_HDF=HDF1:,AD1_MODEL=FLIR_ORX_10G_310S9M,TS=2bmb:,TS_R=TomoScan:,TS_BEAMLINE=tomoScan_2BM,M1=m1,M2=m2,M3=m102,M5=m2,M6=m1,M8=m3,M9=m4,M10=m1,M11=m2,M12=m3,M13=m4,M14=m5,M15=m7,M16=m8,M17=m44,M18=m5,M19=m6,M20=m13,M21=m13,M22=m13,M23=m13,AERO=2bmbAERO:,AERO_M1=m1,T=table3,Q=Table3" mct_main.adl &
+# medm -x -macro "P=2bm:,P1=2bmb:,P2=2bmb:,P3=2bmHXP:,R=MCTOptics:,ER=Energy:,EPS=2bm:,FE=2bma:,Q1=A_shutter:,Q2=B_shutter:,AD0=2bmSP1:,AD0_CAM=cam1:,AD0_PROC1=Proc1:,AD0_HDF=HDF1:,AD0_MODEL=FLIR_ORX_10G_51S5M,AD1=2bmSP2:,AD1_CAM=cam1:,AD1_PROC1=Proc1:,AD1_HDF=HDF1:,AD1_MODEL=FLIR_ORX_10G_310S9M,TS=2bmb:,TS_R=TomoScan:,TS_BEAMLINE=tomoScan_2BM,M1=m3,M2=m1,M3=m102,M5=m18,M6=m17,M8=m2,M9=m4,M10=m1,M11=m2,M12=m3,M13=m4,M14=m5,M15=m7,M16=m8,M17=m44,M18=m5,M19=m6,M20=m24,M21=m22,M22=m21,M23=m23,M24=m49,AERO=2bmbAERO:,AERO_M1=m1,T=table3,Q=Table3" mct_main.adl &

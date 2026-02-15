@@ -1,5 +1,17 @@
-gnome-terminal --tab --title "tomoScanStream IOC" -- bash -c "ssh -t 2bmb@tomdet \
-'bash ~/scripts/kill_IOC.sh tomoScanApp;  \
-bash ~/scripts/kill_server.sh start_tomoscan.py; \
-bash'" 
+#!/bin/bash
+
+# Define variables
+TAB_NAME="tomoScanStream IOC"
+REMOTE_USER="2bmb"
+REMOTE_HOST="tomdet"
+SCRIPT_NAME="start_tomoscan.py"
+APP_NAME="tomoScanApp"
+
+# Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
+gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
+    ssh -t ${REMOTE_USER}@${REMOTE_HOST} '
+        kill_IOC.sh ${APP_NAME}
+        kill_server.sh ${SCRIPT_NAME}
+    ';
+"
 

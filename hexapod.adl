@@ -1,0 +1,93 @@
+file {
+    version=030107
+}
+
+display {
+    object {
+        x=100
+        y=100
+        width=520
+        height=190
+    }
+    clr=14
+    bclr=4
+    cmap=""
+}
+
+cmap {
+    ncolors=65
+    colors {
+        ffffff, ececec, dadada, c8c8c8, b6b6b6, a4a4a4, 929292, 808080,
+        6e6e6e, 5c5c5c, 4a4a4a, 383838, 262626, 141414, 000000,
+        00ff00, 00cc00, 009900, 006600, 003300,
+        ff0000, cc0000, 990000, 660000, 330000,
+        0000ff, 0000cc, 000099, 000066, 000033,
+        ffff00, cccc00, 999900, 666600, 333300,
+        00ffff, 00cccc, 009999, 006666, 003333,
+        ff00ff, cc00cc, 990099, 660066, 330033,
+        ff9900, cc7a00, 995c00, 663d00, 331f00,
+        99ff00, 7acc00, 5c9900, 3d6600, 1f3300,
+        0099ff, 007acc, 005c99, 003d66, 001f33,
+        9999ff, 7a7acc, 5c5c99, 3d3d66, 1f1f33,
+        999999, 666666
+    }
+}
+
+"text" {
+    object { x=10 y=10 width=480 height=20 }
+    textix="Hexapod Enable/Disable"
+    align="horiz. left"
+    clr=14
+    bclr=4
+}
+
+"shell command" {
+    object { x=10 y=45 width=140 height=30 }
+    label="Enable"
+    command[0]="caput 2bmHXP:EnableWork.PROC 1"
+}
+
+"shell command" {
+    object { x=160 y=45 width=140 height=30 }
+    label="Disable"
+    command[0]="caput 2bmHXP:DisableHexapod.PROC 1"
+}
+
+"text" {
+    object { x=10 y=95 width=120 height=20 }
+    textix="Status:"
+    align="horiz. left"
+    clr=14
+    bclr=4
+}
+
+# Green dot visible when enabled (VAL != 0)
+"oval" {
+    object { x=80 y=92 width=18 height=18 }
+    basic attribute { clr=15 fill="solid" }
+    dynamic attribute {
+        vis="if not zero"
+        chan="2bmHXP:HexapodAllEnabled.VAL"
+    }
+}
+
+# Red dot visible when disabled (VAL == 0)
+"oval" {
+    object { x=80 y=92 width=18 height=18 }
+    basic attribute { clr=20 fill="solid" }
+    dynamic attribute {
+        vis="if zero"
+        chan="2bmHXP:HexapodAllEnabled.VAL"
+    }
+}
+
+# Add a real PV-bearing object so right-click PV Info works
+"text update" {
+    object { x=110 y=92 width=120 height=18 }
+    monitor {
+        chan="2bmHXP:HexapodAllEnabled.VAL"
+        clr=14
+        bclr=4
+    }
+    format="decimal"
+}

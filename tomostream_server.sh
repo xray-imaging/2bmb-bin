@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Define variables
-TAB_NAME="tomoScanStream py server"
+TAB_NAME="tomoStream py server"
 REMOTE_USER="2bmb"
-REMOTE_HOST="tomdet"
-CONDA_ENV="tomoscan"
-SCRIPT_NAME="start_tomoscan.py"
-WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomoscan/iocBoot/iocTomoScanStream_2BMB/"
+REMOTE_HOST="tomo5"
+CONDA_ENV="tomostream"
+SCRIPT_NAME="start_tomostream.py"
+WORK_DIR="/home/beams/2BMB/epics/synApps/support/tomostream/iocBoot/iocTomoStream_2BM/"
 
 # Open a new tab in gnome-terminal, SSH into tomdet, activate conda, and run Python (without login shell)
 gnome-terminal --tab --title="$TAB_NAME" -- bash -c "
