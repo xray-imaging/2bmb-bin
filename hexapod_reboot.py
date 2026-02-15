@@ -1,0 +1,213 @@
+#!/usr/bin/env python3
+"""
+Usage
+-----
+
+Reboot hexapod controller (power-cycled via PDU outlet 4) and restart its EPICS IOC.
+
+Prereqs:
+  - Credentials file exists: ~/access.json
+      Must contain keys:
+        pdu_a_ip_address, pdu_a_username, pdu_a_password
+        pdu_b_ip_address, pdu_b_username, pdu_b_password
+      (webcam_* keys may also be present; they are ignored)
+
+  - You can SSH to the IOC host without interactive password prompts
+      ssh 2bmb@arcturus
+
+  - EPICS command-line tools available on the machine running this script:
+      caget, caput
+
+Examples:
+  # Reboot using default PDU "a"
+  python reboot_hexapod.py
+
+  # Reboot using PDU "b"
+  python reboot_hexapod.py --pdu b
+"""
+
+import argparse
+import base64
+import http.client
+import json
+import os
+import pathlib
+import re
+import subprocess
+import time
+
+CREDENTIALS_FILE_NAME = os.path.join(str(pathlib.Path.home()), "access.json")
+
+# Start/stop IOC via helper scripts (in PATH)
+IOC_START_SCRIPT = "hexapod_IOC.sh"
+IOC_STOP_SCRIPT  = "hexapod_IOC_stop.sh"
+
+PV_ALL_ENABLED = "2bmHXP:HexapodAllEnabled.VAL"
+PV_ENABLE_WORK = "2bmHXP:EnableWork.PROC"
+
+HEXAPOD_OUTLET = 4
+
+def load_pdu_creds(pdu: str):
+    pdu = pdu.lower()
+    if pdu not in ("a", "b"):
+        raise ValueError("--pdu must be 'a' or 'b'")
+
+    with open(CREDENTIALS_FILE_NAME, "r") as f:
+        cfg = json.load(f)
+
+    prefix = f"pdu_{pdu}_"
+    ip = cfg[prefix + "ip_address"]
+    user = cfg[prefix + "username"]
+    pwd = cfg[prefix + "password"]
+    return ip, user, pwd
+
+class NetBooterHTTP:
+    def __init__(self, ip, username, password, timeout=10):
+        self.ip = ip
+        self.auth = base64.b64encode(f"{username}:{password}".encode()).decode()
+        self.conn = http.client.HTTPConnection(ip, timeout=timeout)
+
+    def close(self):
+        try:
+            self.conn.close()
+        except Exception:
+            pass
+
+    def _req(self, method, path, body=b"", headers=None):
+        headers = {} if headers is None else dict(headers)
+        headers["Authorization"] = f"Basic {self.auth}"
+        headers.setdefault("Content-Length", str(len(body)))
+
+        self.conn.putrequest(method, path)
+        for k, v in headers.items():
+            self.conn.putheader(k, v)
+        self.conn.endheaders()
+        if body:
+            self.conn.send(body)
+
+        resp = self.conn.getresponse()
+        data = resp.read().decode(errors="ignore")
+        if resp.status != 200:
+            raise RuntimeError(f"HTTP {resp.status} {method} {path}: {data[:200]!r}")
+        return data
+
+    def status(self, outlet: int) -> bool:
+        if outlet not in (1, 2, 3, 4, 5):
+            raise ValueError("outlet must be 1..5")
+
+        xml = self._req("GET", "/status.xml")
+        idx = outlet - 1
+        m = re.search(rf"<rly{idx}>([01])</rly{idx}>", xml)
+        if not m:
+            raise RuntimeError(f"Could not parse /status.xml for outlet {outlet}:\n{xml}")
+        return m.group(1) == "1"
+
+    def _toggle_press(self, outlet: int):
+        idx = outlet - 1
+        self._req(
+            "POST",
+            f"/cmd.cgi?rly={idx}",
+            body=b"1",
+            headers={"Content-Type": "text/plain"},
+        )
+
+    def ensure(self, outlet: int, want_on: bool, verify_delay=0.25) -> bool:
+        cur = self.status(outlet)
+        if cur == want_on:
+            return True
+        self._toggle_press(outlet)
+        time.sleep(verify_delay)
+        return self.status(outlet) == want_on
+
+    def on(self, outlet: int) -> bool:
+        return self.ensure(outlet, True)
+
+    def off(self, outlet: int) -> bool:
+        return self.ensure(outlet, False)
+
+
+def run_cmd(cmd: str):
+    # Run locally; scripts themselves handle any ssh they need
+    return subprocess.run(cmd, shell=True, check=True)
+
+def ioc_stop():
+    return run_cmd(IOC_STOP_SCRIPT)
+
+def ioc_start():
+    return run_cmd(IOC_START_SCRIPT)
+
+def caget(pv: str) -> str:
+    return subprocess.check_output(["caget", "-t", pv], text=True).strip()
+
+
+def caput(pv: str, value):
+    subprocess.check_call(["caput", pv, str(value)])
+
+
+def wait_for_all_enabled(timeout_s=180, poll_s=2) -> bool:
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        try:
+            if caget(PV_ALL_ENABLED) == "1":
+                return True
+        except Exception:
+            pass
+        time.sleep(poll_s)
+    return False
+
+
+def main():
+    ap = argparse.ArgumentParser(
+        description=f"Hexapod reboot: stop IOC, power-cycle outlet {HEXAPOD_OUTLET}, start IOC, verify EPICS enabled"
+    )
+    ap.add_argument(
+        "--pdu",
+        default="a",                    # CHANGED: default is "a"
+        choices=["a", "b", "A", "B"],
+        help="Select PDU creds from ~/access.json (default: a)",
+    )
+    ap.add_argument("--off-wait", type=int, default=10, help="Seconds to wait after power OFF")
+    ap.add_argument("--on-wait", type=int, default=10, help="Seconds to wait after power ON")
+    ap.add_argument("--enable-timeout", type=int, default=180, help="Seconds to wait for HexapodAllEnabled=1")
+    args = ap.parse_args()
+
+    ip, user, pwd = load_pdu_creds(args.pdu)
+    pdu = NetBooterHTTP(ip, user, pwd)
+
+    try:
+        print("Stopping hexapod IOC...")
+        ioc_stop()
+
+        print(f"Powering OFF hexapod controller (outlet {HEXAPOD_OUTLET})...")
+        if not pdu.off(HEXAPOD_OUTLET):
+            raise RuntimeError("PDU power OFF failed (state did not become OFF)")
+
+        print(f"Waiting {args.off_wait}s...")
+        time.sleep(args.off_wait)
+
+        print(f"Powering ON hexapod controller (outlet {HEXAPOD_OUTLET})...")
+        if not pdu.on(HEXAPOD_OUTLET):
+            raise RuntimeError("PDU power ON failed (state did not become ON)")
+
+        print(f"Waiting {args.on_wait}s...")
+        time.sleep(args.on_wait)
+
+        print("Starting hexapod IOC (via hexapod_IOC.sh)...")
+        ioc_start()
+
+        print(f"Waiting for {PV_ALL_ENABLED}=1 (timeout {args.enable_timeout}s)...")
+        if not wait_for_all_enabled(timeout_s=args.enable_timeout, poll_s=2):
+            print(f"{PV_ALL_ENABLED} is not 1; issuing {PV_ENABLE_WORK}=1 and waiting again...")
+            caput(PV_ENABLE_WORK, 1)
+            if not wait_for_all_enabled(timeout_s=args.enable_timeout, poll_s=2):
+                raise RuntimeError(f"{PV_ALL_ENABLED} did not become 1 within timeout")
+
+        print("OK: Hexapod is enabled (HexapodAllEnabled=1).")
+        return 0
+
+    finally:
+        pdu.close()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
